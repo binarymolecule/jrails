@@ -155,6 +155,10 @@ module ActionView
           js_options['data'] << "#{request_forgery_protection_token}=' + encodeURIComponent('#{escape_javascript form_authenticity_token}')"
         end
         js_options['data'] = "''" if js_options['type'] == "'post'" && js_options['data'].nil?
+        
+        js_options['username'] = "'#{options.delete(:username)}'" if options.key?(:username)
+        js_options['password'] = "'#{options.delete(:password)}'" if options.key?(:password)
+          
         options_for_javascript(js_options.reject {|key, value| value.nil?})
       end
       
